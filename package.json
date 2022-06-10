@@ -1,0 +1,19 @@
+{
+  "name": "color-table",
+  "version": "1.0.0",
+  "description": "test exercise with color picker component on JS",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OvanessTea/color-picker_webcomp.git"
+  },
+  "author": "Eduard Suslov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/OvanessTea/color-picker_webcomp/issues"
+  },
+  "homepage": "https://github.com/OvanessTea/color-picker_webcomp#readme"
+}

@@ -9,12 +9,20 @@
     <title>Color-Picker</title>
 </head>
 <body>
-    <template id="DTWebCompTemplate" >
-        <div class="tableLabel"></div>
-    </template>
-    <datatable-webcounter>
-        <datatable-webcomp id="dtWebComp" ></datatable-webcomp>
-    </datatable-webcounter>
+    <div class="body_templates">
+        <template id="DTWebCompTemplate" >
+            <div class="tableLabel"></div>
+        </template>
+        <datatable-webcounter>
+            <datatable-webcomp id="dtWebComp" ></datatable-webcomp>
+        </datatable-webcounter>
+        <template id="CPWebCompTemplate" >
+            <div class="colorPickerLabel"></div>
+        </template>
+        <colorpicker-webcounter>
+            <colorpicker-webcomp id="cpWebComp" ></colorpicker-webcomp>
+        </colorpicker-webcounter>
+    </div>
     <script type="module" src="script.js"></script>
 </body>
 </html>

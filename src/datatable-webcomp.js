@@ -26,7 +26,7 @@ export class DTWebComp extends HTMLElement {
             , `<div id='tableFrame'>
                 <div class="tableFrame__nav">
                     <div class="nav_cotainer">
-                        <h2>Таблица цветов</h2>
+                        <h2 class="table_header">Таблица цветов</h2>
                         <div>
                             <button class="_icon">
                                 <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg" class="save_icon">

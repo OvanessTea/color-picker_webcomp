@@ -141,6 +141,10 @@ td > ._icon {
     margin-left: 48px;
 }
 
+.nav_cotainer.nav_cp > h2 {
+    margin-bottom: 27px;
+}
+
 label {
     width: 280px;
     display: flex;
@@ -150,48 +154,91 @@ label {
 label:not(:last-child) {
     margin-bottom: 17px;
 }
+label:not(:first-child) {
+    align-items: flex-start;
+}
 label p{
+    margin-top: 10px;
     color: #A0A0A0;
     font-size: 12px;
     line-height: 20px;
     font-weight: 700;
 }
-label select, input {
-    background-color: #777777;
+label input {
+    background: #424242;
     color: #bfbfbf;
-    /* height: 40px; */
+    height: 40px;
     width:175px;
     padding-left: 15px;
     border: 1px solid #8d8d8d;
     border-radius: 6px;
 }
-label input {
-    width: 160px;
-}
+
 label input::placeholder {
     color: #bfbfbf;
 }
 
 .select-box {
     display: flex;
+    font-size: 12px;
+    line-height: 15px;
     width: 175px;
     flex-direction: column;
 }
 
-.select-box .option-container {
-    /* background: #777777; */
+.select-box .options-container {
+    /* margin-top: -40px; */
     background: #424242;
     color: #bfbfbf;
-    /* max-height: 0; */
+    max-height: 0;
     width: 100%;
-    /* opacity: 0; */
+    opacity: 0;
     transition: all 0.45s;
     border: 1px solid #8d8d8d;
     border-radius: 6px;
     overflow: hidden;
 }
+
+.selected {
+    background: #424242;
+    color: #bfbfbf;
+    height: 40px;
+    width:175px;
+    padding-left: 15px;
+    border: 1px solid #8d8d8d;
+    border-radius: 6px;
+    position: relative;
+    z-index: 1;
+}
+
+.selected::after {
+    content: "";
+    background: url("./image/Dropdown_arrow_icon.svg");
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: absolute;
+    height: 100%;
+    width: 25px;
+    top: 7px;
+    right: 5px;
+    transition: all 0.4s;
+}
+
+.select-box .options-container.active {
+    max-height: 162px;
+    opacity: 1;
+    overflow-y: scroll;
+    z-index: 2;
+}
+
+.select-box .options-container::-webkit-scrollbar {
+    width: 0px;
+    background: #424242;
+}
+
 .select-box .option,
 .selected {
+    height: 40px;
     padding: 12px 11px;
     cursor: pointer;
 }

@@ -1,29 +1,38 @@
+
+
 export class CPWebComp extends HTMLElement {
 
     constructor() {
         super();
-        // this.dataColor.addEventListener('dataColor', this.dataColor.bind(this));
     }
 
-    dataColor = [
-        {name: 'Мятное утро', type: 'base', color: '#86EAE9'},
-        {name: 'Лавандовый пунш', type: 'main', color: '#B8B2DD'},
-    ]
-    
+    attributeChangedCallback(prop, oldVal, newVal) {
+        if (prop === 'active') {
+            this.render();
+            let toggleActive = this.querySelector(".selected");
+            toggleActive.addEventListener("click", this.toggleActive.bind(this));
+            let optionsList = document.querySelectorAll(".option");
+            optionsList.forEach(option => {
+                option.addEventListener("click", (option) => this.changeSelected(option.target));
+            })
+        }
+    }
+
     connectedCallback() {
         let html = document.importNode(DTWebCompTemplate.content, true);
         this.appendChild(html);
-        this.updateLabel();
+        this.render();
+        let toggleActive = this.querySelector(".selected");
+        toggleActive.addEventListener("click", this.toggleActive.bind(this));
+        let optionsList = document.querySelectorAll(".option");
+        optionsList.forEach(option => {
+            option.addEventListener("click", (option) => this.changeSelected(option.target));
+        })
         
     }
 
-    // delete_btn = document.querySelector("#delete_btn");
-    // delete_btn.addEventListener
-
-    
-    updateLabel() {
-        this.insertAdjacentHTML('beforeEnd'
-            ,`  
+    render() {
+        this.innerHTML = `  
             <div id="colorpickerFrame">
                 <div class="colorpickerFrame__nav">
                     <div class="nav_cotainer nav_cp">
@@ -37,23 +46,23 @@ export class CPWebComp extends HTMLElement {
                                 <p>Выберите тип</p>
                                 <div class="select-box">
                                     <div class="selected">
-                                        Main
+                                        ${this.selected}
                                     </div>
-                                    <div class="option-container">
+                                    <div class="options-container ${this.active}">
                                         <div class="option">
-                                            <input type="radio" class="radio" id="main" name="color_type">
+                                            <input type="radio" class="radio" id="main" value="Main" name="color_type">
                                             <label for="color_type">Main</label>
                                         </div>
                                         <div class="option">
-                                            <input type="radio" class="radio" id="primary" name="color_type">
+                                            <input type="radio" class="radio" id="primary" value="Primary" name="color_type">
                                             <label for="color_type">Primary</label>
                                         </div>
                                         <div class="option">
-                                            <input type="radio" class="radio" id="secondary" name="color_type">
+                                            <input type="radio" class="radio" id="secondary" value="Secondary" name="color_type">
                                             <label for="color_type">Secondary</label>
                                         </div>
                                         <div class="option">
-                                            <input type="radio" class="radio" id="base" name="color_type">
+                                            <input type="radio" class="radio" id="base" value="Base" name="color_type">
                                             <label for="color_type">Base</label>
                                         </div>
                                     </div>
@@ -63,33 +72,48 @@ export class CPWebComp extends HTMLElement {
                     </div>
                 </div> 
             </div>            
-        `);
-    }
- 
-    static get observedAttributes() {
-        return ['index'];
-    }
- 
-    attributeChangedCallback(name, oldValue, newValue) {
-        console.log(name)
-        if (name === 'index') {
-            this.updateLabel();
-        }
-    }
- 
-    deleteColor(item) {
-        console.log(this.dataColor);
-        console.log(item);
-        // console.log(this.dataColor);
-        this.setAttribute('dataColor', this.getAttribute('item'));
-        // this.setAttribute('dataColor', this.dataColor.filter(item => item[event.target.childElementCount] === event.target.childElementCount));
-        // this.dataColor = this.dataColor.filter(color => color[index] === index);
-        // this.setAttribute('dataColor', this.dataColor);
-        // console.log(this.dataColor);
+        `;
     }
 
-//     showMessage(event) {
-//         this.setAttribute('count', +(this.getAttribute('count')) + 1);
-//         this.counter.increment();
-//     }
- }
+    toggleActive() {
+        this.active = this.active ? "" : "active";
+    }
+    changeSelected(option) {
+        console.log(option)
+        // console.log(option);
+        let changeValue = option.value;
+        // console.log(changeValue);
+        if (this.selected !== option.querySelector("input").value) {
+            console.log(option);
+            this.selected = option.querySelector("input").value;
+        }
+        // this.active = "";
+    }
+
+    static get observedAttributes() {
+        return ["active", "selected"];
+    }
+
+    get active() {
+        return this.getAttribute("active");
+    }
+
+    set active(val) {
+        this.setAttribute("active", val)
+    }
+
+    get selected() {
+        return this.getAttribute("selected");
+    }
+
+    set selected(val) {
+        this.setAttribute("selected", val)
+    }
+
+    
+    
+
+    
+    
+
+}

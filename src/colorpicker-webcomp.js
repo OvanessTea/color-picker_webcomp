@@ -1,20 +1,44 @@
-
+import  './color-picker.js';
 
 export class CPWebComp extends HTMLElement {
 
     constructor() {
         super();
+        this.colorState="ffffff";
+        this.selectedParams = {
+            name: "new",
+            type: this.selected.toLowerCase(),
+            color: "#" + this.colorState.toUpperCase()
+        }
     }
 
     attributeChangedCallback(prop, oldVal, newVal) {
+        console.log(prop)
         if (prop === 'active') {
             this.render();
             let toggleActive = this.querySelector(".selected");
             toggleActive.addEventListener("click", this.toggleActive.bind(this));
-            let optionsList = document.querySelectorAll(".option");
-            optionsList.forEach(option => {
-                option.addEventListener("click", (option) => this.changeSelected(option.target));
-            })
+            console.log(this.selectedParams)
+            
+            const picker = document.querySelector("color-picker");
+            picker.addEventListener("color-change", () => {
+                const {state} = picker
+                this.colorState = state.hex;
+                
+            });
+        } else if (prop === 'selected') {
+            this.render();
+            let optionsList = this.getElementsByClassName("option");
+            for (let i=0; i < optionsList.length; i++) {
+                optionsList[i].addEventListener("click", () => this.changeSelected)
+            }
+        
+            // optionsList.forEach(o => {
+            //     o.addEventListener("change", (event) => {
+            //         console.log(event.target.value)
+            //         toggleActive.innerHTML = event.target.value;
+            //     });
+            // })
         }
     }
 
@@ -24,10 +48,17 @@ export class CPWebComp extends HTMLElement {
         this.render();
         let toggleActive = this.querySelector(".selected");
         toggleActive.addEventListener("click", this.toggleActive.bind(this));
-        let optionsList = document.querySelectorAll(".option");
-        optionsList.forEach(option => {
-            option.addEventListener("click", (option) => this.changeSelected(option.target));
-        })
+        let optionsList = this.getElementsByClassName("option");
+        for (let i=0; i < optionsList.length; i++) {
+            optionsList[i].addEventListener("click", () => this.changeSelected)
+        }
+        const picker = document.querySelector("color-picker");
+        picker.addEventListener("color-change", () => {
+            const {state} = picker
+            this.colorState = state.hex;
+            
+        });
+
         
     }
 
@@ -59,7 +90,7 @@ export class CPWebComp extends HTMLElement {
                                         </div>
                                         <div class="option">
                                             <input type="radio" class="radio" id="secondary" value="Secondary" name="color_type">
-                                            <label for="color_type">Secondary</label>
+                                            <label for="color_type">Secondary</label> 
                                         </div>
                                         <div class="option">
                                             <input type="radio" class="radio" id="base" value="Base" name="color_type">
@@ -70,7 +101,10 @@ export class CPWebComp extends HTMLElement {
                             </label>
                         </div>
                     </div>
-                </div> 
+                </div>
+                <color-picker></color-picker>
+                <button class="addColor__btn cp_btn">Добавить</button>
+                <script src=color-picker.js></script>
             </div>            
         `;
     }
@@ -78,15 +112,9 @@ export class CPWebComp extends HTMLElement {
     toggleActive() {
         this.active = this.active ? "" : "active";
     }
-    changeSelected(option) {
-        console.log(option)
-        // console.log(option);
-        let changeValue = option.value;
-        // console.log(changeValue);
-        if (this.selected !== option.querySelector("input").value) {
-            console.log(option);
-            this.selected = option.querySelector("input").value;
-        }
+    changeSelected() {
+        console.log(444)
+        this.render();
         // this.active = "";
     }
 
@@ -109,11 +137,6 @@ export class CPWebComp extends HTMLElement {
     set selected(val) {
         this.setAttribute("selected", val)
     }
-
-    
-    
-
-    
-    
+     
 
 }

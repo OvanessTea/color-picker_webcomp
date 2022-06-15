@@ -7,4 +7,4 @@ import "./combobox.js";
  
 customElements.define('datatable-webcomp', DTWebComp)
 customElements.define('colorpicker-webcomp', CPWebComp)
-// customElements.define('datatable-webcounter', DTWebCounter)
+
